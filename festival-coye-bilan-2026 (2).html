@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bilan 45ème Festival Théâtral de Coye-la-Forêt — 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root {
+  --bg: #f5f2ec;
+  --bg-card: #fffef9;
+  --ink: #1a1612;
+  --ink-mid: #4a4540;
+  --ink-light: #8a8278;
+  --gold: #b8933a;
+  --gold-light: #e8d5a0;
+  --gold-pale: #f7f0de;
+  --red: #8b2c2c;
+  --red-light: #f5e8e8;
+  --green: #2c5a3a;
+  --green-light: #e8f2ec;
+  --border: rgba(26,22,18,0.1);
+  --shadow: 0 2px 16px rgba(26,22,18,0.07);
+  --radius: 4px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* HEADER */
+.header {
+  background: var(--ink);
+  color: #f5f2ec;
+  padding: 3.5rem 2rem 2.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 40px,
+    rgba(184,147,58,0.04) 40px,
+    rgba(184,147,58,0.04) 41px
+  );
+  pointer-events: none;
+}
+.header-tag {
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #f5f2ec;
+  max-width: 700px;
+  margin: 0 auto 0.75rem;
+}
+.header h1 span { color: var(--gold); }
+.header-sub {
+  font-size: 14px;
+  color: rgba(245,242,236,0.55);
+  letter-spacing: .05em;
+}
+.header-rule {
+  width: 48px;
+  height: 2px;
+  background: var(--gold);
+  margin: 1.5rem auto 0;
+}
+
+/* NAV */
+nav {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 8px rgba(26,22,18,0.06);
+}
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+.nav-btn {
+  padding: 1rem 1.25rem;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-light);
+  cursor: pointer;
+  white-space: nowrap;
+  border: none;
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: .02em;
+}
+.nav-btn:hover { color: var(--ink); }
+.nav-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* LAYOUT */
+main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+
+section { display: none; }
+section.active { display: block; }
+
+/* SECTION TITLE */
+.section-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.section-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+.section-tag {
+  font-size: 11px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+}
+
+/* METRICS GRID */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 2rem;
+}
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.metric-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--gold);
+}
+.metric-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--ink-light);
+  margin-bottom: .5rem;
+}
+.metric-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: .4rem;
+}
+.metric-delta {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  display: inline-block;
+  font-weight: 500;
+}
+.delta-down { background: var(--red-light); color: var(--red); }
+.delta-up { background: var(--green-light); color: var(--green); }
+.delta-flat { background: var(--gold-pale); color: #7a5e1a; }
+
+/* CARDS GRID */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 2rem; }
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+.card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--ink);
+  border-bottom: 1px solid var(--gold-light);
+  padding-bottom: .5rem;
+}
+
+/* CHART WRAP */
+.chart-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 1.5rem;
+}
+.chart-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: var(--ink);
+  margin-bottom: .25rem;
+}
+.chart-card p { font-size: 12px; color: var(--ink-light); margin-bottom: 1rem; }
+.chart-wrap { position: relative; width: 100%; }
+
+/* TABLES */
+.table-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+.table-card-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+.table-card-header h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+}
+.search-box {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-size: 13px;
+  background: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  width: 200px;
+}
+.search-box:focus { outline: none; border-color: var(--gold); }
+.table-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead th {
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--ink-light);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+}
+thead th:hover { color: var(--ink); }
+thead th.sorted { color: var(--gold); }
+thead th .sort-icon { margin-left: 4px; opacity: .4; }
+thead th.sorted .sort-icon { opacity: 1; }
+tbody tr { transition: background .15s; }
+tbody tr:hover { background: var(--gold-pale); }
+tbody td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink);
+  vertical-align: middle;
+}
+tbody tr:last-child td { border-bottom: none; }
+.right { text-align: right; }
+.center { text-align: center; }
+
+/* BADGES */
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 2px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.badge-gold { background: var(--gold-pale); color: #7a5e1a; }
+.badge-red { background: var(--red-light); color: var(--red); }
+.badge-green { background: var(--green-light); color: var(--green); }
+
+/* BAR MINI */
+.mini-bar-wrap { display: flex; align-items: center; gap: 8px; }
+.mini-bar { height: 6px; border-radius: 1px; background: var(--gold); min-width: 2px; transition: width .3s; }
+
+/* PROGRESS */
+.progress-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: .6rem; gap: 1rem; }
+.progress-label { font-size: 12px; color: var(--ink-mid); min-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.progress-bar-wrap { flex: 1; height: 8px; background: var(--gold-pale); border-radius: 1px; overflow: hidden; }
+.progress-bar { height: 100%; background: var(--gold); border-radius: 1px; transition: width .6s ease; }
+.progress-val { font-size: 12px; color: var(--ink-light); min-width: 55px; text-align: right; }
+
+/* LEGEND */
+.legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; color: var(--ink-mid); margin-bottom: 10px; }
+.legend span { display: flex; align-items: center; gap: 5px; }
+.leg-sq { width: 10px; height: 10px; border-radius: 1px; flex-shrink: 0; }
+
+/* RECO */
+.reco-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.reco-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+.reco-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  line-height: 1;
+  position: absolute;
+  top: .75rem; right: 1rem;
+}
+.reco-card h4 {
+  font-weight: 500;
+  font-size: .9rem;
+  color: var(--ink);
+  margin-bottom: .5rem;
+  padding-right: 2rem;
+}
+.reco-card p { font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
+.reco-priority {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--gold);
+  margin-bottom: .4rem;
+  font-weight: 500;
+}
+
+/* TOGGLE */
+.toggle-wrap { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
+.toggle-btn {
+  padding: 5px 14px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-size: 12px;
+  cursor: pointer;
+  background: var(--bg-card);
+  color: var(--ink-mid);
+  font-family: 'DM Sans', sans-serif;
+  transition: all .15s;
+}
+.toggle-btn:hover { border-color: var(--gold); color: var(--ink); }
+.toggle-btn.active { background: var(--gold); border-color: var(--gold); color: #fff; }
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 12px;
+  color: var(--ink-light);
+  border-top: 1px solid var(--border);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* COMPARE TABLE */
+.compare-wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.compare-col { }
+.compare-year {
+  background: var(--ink);
+  color: #f5f2ec;
+  text-align: center;
+  padding: .75rem;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .05em;
+}
+.compare-year.current { background: var(--gold); color: #1a1612; }
+.compare-cell {
+  padding: .75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  text-align: center;
+}
+.compare-cell:last-child { border-bottom: none; }
+.compare-cell.key { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-light); text-align: left; background: var(--bg); }
+.compare-cell.best { font-weight: 500; color: var(--green); }
+.compare-cell.worst { color: var(--red); }
+
+@media (max-width: 600px) {
+  .compare-wrap { grid-template-columns: repeat(2, 1fr); }
+  .header h1 { font-size: 1.7rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <p class="header-tag">Bilan annuel · Données au 30 mai 2026</p>
+  <h1>45<span>ème</span> Festival Théâtral<br>de Coye-la-Forêt</h1>
+  <p class="header-sub">Analyse complète de la billetterie &amp; des résultats</p>
+  <div class="header-rule"></div>
+</header>
+
+<nav>
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="showSection('resume')">Vue d'ensemble</button>
+    <button class="nav-btn" onclick="showSection('frequentation')">Fréquentation</button>
+    <button class="nav-btn" onclick="showSection('spectacles')">Spectacles</button>
+    <button class="nav-btn" onclick="showSection('recettes')">Recettes &amp; Charges</button>
+    <button class="nav-btn" onclick="showSection('historique')">Historique 2023–2026</button>
+    <button class="nav-btn" onclick="showSection('satisfaction')">Satisfaction spectateurs</button>
+    <button class="nav-btn" onclick="showSection('feuilleroute')">Feuille de route 2027</button>
+    <button class="nav-btn" onclick="showSection('recos')">Recommandations</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ================================ VUE D'ENSEMBLE ================================ -->
+<section id="resume" class="active">
+  <div class="section-header">
+    <h2>Vue d'ensemble</h2>
+    <span class="section-tag">Résumé exécutif</span>
+  </div>
+
+  <div class="metrics">
+    <div class="metric-card">
+      <p class="metric-label">Fréquentation totale</p>
+      <p class="metric-val">4 619</p>
+      <span class="metric-delta delta-down">−13 % vs 2025</span>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Recette billetterie</p>
+      <p class="metric-val">64 051 €</p>
+      <span class="metric-delta delta-flat">≈ stable vs 2025</span>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Recette / billet</p>
+      <p class="metric-val">13,87 €</p>
+      <span class="metric-delta delta-up">+14 % vs 2025</span>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Total recettes estimées</p>
+      <p class="metric-val">169 921 €</p>
+      <span class="metric-delta delta-down">−5 % vs 2025</span>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">% invités</p>
+      <p class="metric-val">4,8 %</p>
+      <span class="metric-delta delta-up">↓ vs 11,8 % en 2025</span>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Mécénat</p>
+      <p class="metric-val">23 480 €</p>
+      <span class="metric-delta delta-down">−31 % vs 2025</span>
+    </div>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Répartition public</h3>
+      <div class="progress-row"><span class="progress-label">Hors scolaires</span><div class="progress-bar-wrap"><div class="progress-bar" style="width:68.7%"></div></div><span class="progress-val">3 176</span></div>
+      <div class="progress-row"><span class="progress-label">Scolaires</span><div class="progress-bar-wrap"><div class="progress-bar" style="width:31.2%; background:#b8933a66"></div></div><span class="progress-val">1 443</span></div>
+      <div class="progress-row" style="margin-top:.75rem; padding-top:.75rem; border-top:1px solid var(--border);">
+        <span class="progress-label" style="color:var(--ink-light); font-size:11px;">dont payants (hors scol.)</span>
+        <div class="progress-bar-wrap"><div class="progress-bar" style="width:95.3%; background:var(--green)"></div></div>
+        <span class="progress-val">3 059</span>
+      </div>
+      <div class="progress-row">
+        <span class="progress-label" style="color:var(--ink-light); font-size:11px;">dont gratuits / invités</span>
+        <div class="progress-bar-wrap"><div class="progress-bar" style="width:4.7%; background:var(--red)"></div></div>
+        <span class="progress-val">352</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Sources de recettes estimées</h3>
+      <div class="progress-row"><span class="progress-label">Subventions</span><div class="progress-bar-wrap"><div class="progress-bar" style="width:45.3%"></div></div><span class="progress-val">77 000 €</span></div>
+      <div class="progress-row"><span class="progress-label">Billetterie</span><div class="progress-bar-wrap"><div class="progress-bar" style="width:37.7%; background:#b8933a99"></div></div><span class="progress-val">64 051 €</span></div>
+      <div class="progress-row"><span class="progress-label">Mécénat &amp; dons</span><div class="progress-bar-wrap"><div class="progress-bar" style="width:13.8%; background:#b8933a55"></div></div><span class="progress-val">23 480 €</span></div>
+      <div class="progress-row"><span class="progress-label">Cartes Amis</span><div class="progress-bar-wrap"><div class="progress-bar" style="width:3.2%; background:#b8933a33"></div></div><span class="progress-val">5 390 €</span></div>
+    </div>
+    <div class="card">
+      <h3>Programme 2026</h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:13px;">
+        <div><span style="font-size:1.5rem; font-family:'Playfair Display',serif; font-weight:700; color:var(--gold); display:block; line-height:1">22</span><span style="color:var(--ink-light)">représentations</span></div>
+        <div><span style="font-size:1.5rem; font-family:'Playfair Display',serif; font-weight:700; color:var(--gold); display:block; line-height:1">14</span><span style="color:var(--ink-light)">soirées</span></div>
+        <div><span style="font-size:1.5rem; font-family:'Playfair Display',serif; font-weight:700; color:var(--gold); display:block; line-height:1">8</span><span style="color:var(--ink-light)">séances scolaires</span></div>
+        <div><span style="font-size:1.5rem; font-family:'Playfair Display',serif; font-weight:700; color:var(--gold); display:block; line-height:1">171</span><span style="color:var(--ink-light)">cartes Amis</span></div>
+        <div><span style="font-size:1.5rem; font-family:'Playfair Display',serif; font-weight:700; color:var(--gold); display:block; line-height:1">227</span><span style="color:var(--ink-light)">moy. soirées</span></div>
+        <div><span style="font-size:1.5rem; font-family:'Playfair Display',serif; font-weight:700; color:var(--gold); display:block; line-height:1">17</span><span style="color:var(--ink-light)">spectacles joués</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <h3>Évolution générale 2023–2026</h3>
+    <p>Fréquentation totale et recettes billetterie comparées</p>
+    <div class="legend">
+      <span><span class="leg-sq" style="background:#1a1612"></span>Fréquentation (axe gauche)</span>
+      <span><span class="leg-sq" style="background:#b8933a"></span>Recette billetterie</span>
+      <span><span class="leg-sq" style="background:#2c5a3a"></span>Total recettes estimées</span>
+    </div>
+    <div class="chart-wrap" style="height:280px">
+      <canvas id="chartGlobal" role="img" aria-label="Évolution 2023-2026">Fréquentation: 6035, 6047, 5310, 4619. Recettes: 62724, 71167, 64408, 64051.</canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ================================ FRÉQUENTATION ================================ -->
+<section id="frequentation">
+  <div class="section-header">
+    <h2>Fréquentation</h2>
+    <span class="section-tag">Analyse publics</span>
+  </div>
+
+  <div class="metrics">
+    <div class="metric-card"><p class="metric-label">Total</p><p class="metric-val">4 619</p><span class="metric-delta delta-down">−691 vs 2025</span></div>
+    <div class="metric-card"><p class="metric-label">Hors scolaires</p><p class="metric-val">3 176</p><span class="metric-delta delta-down">−196 vs 2025</span></div>
+    <div class="metric-card"><p class="metric-label">Scolaires</p><p class="metric-val">1 443</p><span class="metric-delta delta-down">−495 vs 2025</span></div>
+    <div class="metric-card"><p class="metric-label">Payants</p><p class="metric-val">4 396</p><span class="metric-delta delta-up">95,2 % du total</span></div>
+    <div class="metric-card"><p class="metric-label">Gratuits / invités</p><p class="metric-val">352</p><span class="metric-delta delta-up">7,6 % — excellent</span></div>
+  </div>
+
+  <div class="cards">
+    <div class="chart-card">
+      <h3>Fréquentation par catégorie de public (hors scolaires)</h3>
+      <p>Répartition des billets vendus par tarif</p>
+      <div class="chart-wrap" style="height:260px">
+        <canvas id="chartDonut" role="img" aria-label="Répartition billetterie hors scolaires">Adulte 1337, Amis 630, Enfants 351, Cartes culturelles 254, Invités 223, Étudiants 138, Autres 93</canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <h3>Comparaison scolaires vs hors scolaires</h3>
+      <p>Évolution sur 4 ans</p>
+      <div class="chart-wrap" style="height:260px">
+        <canvas id="chartScol" role="img" aria-label="Scolaires vs hors scolaires 2023-2026"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-card-header">
+      <h3>Tarifs et volumes — édition 2026</h3>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Catégorie</th>
+            <th>Tarif unitaire</th>
+            <th class="right">Billets vendus</th>
+            <th class="right">% du total</th>
+            <th class="right">Recette</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Adulte plein tarif</td><td>23 €</td><td class="right">1 337</td><td class="right"><div class="mini-bar-wrap"><div class="mini-bar" style="width:65px"></div><span>42,1 %</span></div></td><td class="right"><strong>30 751 €</strong></td></tr>
+          <tr><td>Amis du Festival</td><td>14 €</td><td class="right">630</td><td class="right"><div class="mini-bar-wrap"><div class="mini-bar" style="width:29px; background:#b8933a88"></div><span>19,8 %</span></div></td><td class="right">8 820 €</td></tr>
+          <tr><td>Enfants − de 16 ans</td><td>10 €</td><td class="right">351</td><td class="right"><div class="mini-bar-wrap"><div class="mini-bar" style="width:17px; background:#b8933a66"></div><span>11,1 %</span></div></td><td class="right">3 510 €</td></tr>
+          <tr><td>Autres cartes culturelles</td><td>17 €</td><td class="right">254</td><td class="right"><div class="mini-bar-wrap"><div class="mini-bar" style="width:12px; background:#b8933a55"></div><span>8,0 %</span></div></td><td class="right">4 318 €</td></tr>
+          <tr><td>Invités &amp; accompagnateurs</td><td>0 €</td><td class="right">223</td><td class="right"><div class="mini-bar-wrap"><div class="mini-bar" style="width:10px; background:#8b2c2c66"></div><span>7,0 %</span></div></td><td class="right" style="color:var(--ink-light)">0 €</td></tr>
+          <tr><td>Étudiants / lycéens</td><td>12 €</td><td class="right">138</td><td class="right"><div class="mini-bar-wrap"><div class="mini-bar" style="width:6px; background:#b8933a44"></div><span>4,3 %</span></div></td><td class="right">1 656 €</td></tr>
+          <tr><td>Demandeurs d'emploi</td><td>10 €</td><td class="right">93</td><td class="right"><div class="mini-bar-wrap"><div class="mini-bar" style="width:4px; background:#b8933a33"></div><span>2,9 %</span></div></td><td class="right">930 €</td></tr>
+          <tr><td>Groupes scolaires (toutes)</td><td>9,50 €</td><td class="right">1 443</td><td class="right" colspan="2"><span class="badge badge-gold">Séances dédiées</span></td></tr>
+          <tr style="font-weight:500; background:var(--gold-pale)"><td>Total général</td><td>—</td><td class="right">4 619</td><td class="right">—</td><td class="right">64 051 €</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================================ SPECTACLES ================================ -->
+<section id="spectacles">
+  <div class="section-header">
+    <h2>Spectacles &amp; représentations</h2>
+    <span class="section-tag">Détail séance par séance</span>
+  </div>
+
+  <div class="table-card">
+    <div class="table-card-header">
+      <h3>Toutes les représentations — 2026</h3>
+      <input class="search-box" type="text" id="searchSpectacles" placeholder="Rechercher un spectacle..." oninput="filterTable('tableSpectacles','searchSpectacles')">
+    </div>
+    <div class="table-scroll">
+      <table id="tableSpectacles">
+        <thead>
+          <tr>
+            <th onclick="sortTable('tableSpectacles',0)" class="sorted">N° <span class="sort-icon">↕</span></th>
+            <th onclick="sortTable('tableSpectacles',1)">Date &amp; heure <span class="sort-icon">↕</span></th>
+            <th onclick="sortTable('tableSpectacles',2)">Titre <span class="sort-icon">↕</span></th>
+            <th onclick="sortTable('tableSpectacles',3)" class="right">Total <span class="sort-icon">↕</span></th>
+            <th onclick="sortTable('tableSpectacles',4)" class="right">Payants <span class="sort-icon">↕</span></th>
+            <th onclick="sortTable('tableSpectacles',5)" class="right">Gratuits <span class="sort-icon">↕</span></th>
+            <th onclick="sortTable('tableSpectacles',6)" class="right">Recette <span class="sort-icon">↕</span></th>
+            <th class="center">Type</th>
+          </tr>
+        </thead>
+        <tbody id="tableSpectaclesBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <h3>Fréquentation des soirées 2026</h3>
+    <p>Classé par nombre de spectateurs — seuil complet estimé à 251 personnes</p>
+    <div class="chart-wrap" style="height:480px">
+      <canvas id="chartSoirees" role="img" aria-label="Fréquentation soirées 2026"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ================================ RECETTES & CHARGES ================================ -->
+<section id="recettes">
+  <div class="section-header">
+    <h2>Recettes &amp; Charges</h2>
+    <span class="section-tag">Analyse financière</span>
+  </div>
+
+  <div class="metrics">
+    <div class="metric-card"><p class="metric-label">Recette billetterie</p><p class="metric-val">64 051 €</p><span class="metric-delta delta-flat">dont scol. 13 709 €</span></div>
+    <div class="metric-card"><p class="metric-label">Subventions</p><p class="metric-val">77 000 €</p><span class="metric-delta delta-flat">hors DRAC</span></div>
+    <div class="metric-card"><p class="metric-label">Mécénat &amp; dons</p><p class="metric-val">23 480 €</p><span class="metric-delta delta-down">−31 % vs 2025</span></div>
+    <div class="metric-card"><p class="metric-label">Total charges</p><p class="metric-val">168 200 €</p><span class="metric-delta delta-flat">estimation</span></div>
+    <div class="metric-card"><p class="metric-label">Charges compagnies</p><p class="metric-val">127 463 €</p><span class="metric-delta delta-flat">cachets + droits + frais</span></div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-card-header">
+      <h3>Charges par compagnie</h3>
+      <input class="search-box" type="text" id="searchCharges" placeholder="Rechercher..." oninput="filterTable('tableCharges','searchCharges')">
+    </div>
+    <div class="table-scroll">
+      <table id="tableCharges">
+        <thead>
+          <tr>
+            <th onclick="sortTable('tableCharges',0)">Spectacle <span class="sort-icon">↕</span></th>
+            <th onclick="sortTable('tableCharges',1)" class="right">Cachet TTC <span class="sort-icon">↕</span></th>
+            <th onclick="sortTable('tableCharges',2)" class="right">Droits <span class="sort-icon">↕</span></th>
+            <th onclick="sortTable('tableCharges',3)" class="right">Autres frais <span class="sort-icon">↕</span></th>
+            <th onclick="sortTable('tableCharges',4)" class="right">Total <span class="sort-icon">↕</span></th>
+          </tr>
+        </thead>
+        <tbody id="tableChargesBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <h3>Charges par compagnie (empilées)</h3>
+    <p>Cachet, droits et autres frais</p>
+    <div class="legend">
+      <span><span class="leg-sq" style="background:#1a1612"></span>Cachet TTC</span>
+      <span><span class="leg-sq" style="background:#b8933a"></span>Droits SACD/ASTP</span>
+      <span><span class="leg-sq" style="background:#2c5a3a"></span>Autres frais</span>
+    </div>
+    <div class="chart-wrap" style="height:520px">
+      <canvas id="chartCharges" role="img" aria-label="Charges par compagnie"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ================================ HISTORIQUE ================================ -->
+<section id="historique">
+  <div class="section-header">
+    <h2>Historique 2023–2026</h2>
+    <span class="section-tag">Comparatif 4 années</span>
+  </div>
+
+  <div class="chart-card">
+    <h3>Indicateurs clés sur 4 ans</h3>
+    <div class="toggle-wrap">
+      <button class="toggle-btn active" onclick="switchHistoChart('freq',this)">Fréquentation</button>
+      <button class="toggle-btn" onclick="switchHistoChart('recette',this)">Recettes</button>
+      <button class="toggle-btn" onclick="switchHistoChart('moyen',this)">Recette / billet</button>
+      <button class="toggle-btn" onclick="switchHistoChart('mecen',this)">Mécénat</button>
+    </div>
+    <div class="chart-wrap" style="height:280px">
+      <canvas id="chartHisto" role="img" aria-label="Historique indicateurs"></canvas>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-card-header"><h3>Tableau comparatif complet</h3></div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Indicateur</th>
+            <th class="right">2023</th>
+            <th class="right">2024</th>
+            <th class="right">2025</th>
+            <th class="right" style="color:var(--gold)">2026</th>
+            <th class="center">Tendance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Fréquentation totale</td><td class="right">6 035</td><td class="right best">6 047</td><td class="right">5 310</td><td class="right worst">4 619</td><td class="center"><span class="badge badge-red">↓ −13 %</span></td></tr>
+          <tr><td>Dont hors scolaires</td><td class="right">3 474</td><td class="right best">3 777</td><td class="right">3 372</td><td class="right">3 176</td><td class="center"><span class="badge badge-red">↓ −6 %</span></td></tr>
+          <tr><td>Dont scolaires</td><td class="right">2 561</td><td class="right">2 270</td><td class="right">1 938</td><td class="right worst">1 443</td><td class="center"><span class="badge badge-red">↓ −26 %</span></td></tr>
+          <tr><td>Nb représentations total</td><td class="right">27</td><td class="right best">29</td><td class="right">23</td><td class="right">22</td><td class="center"><span class="badge badge-gold">−1</span></td></tr>
+          <tr><td>Recette billetterie (€)</td><td class="right">62 724</td><td class="right best">71 167</td><td class="right">64 408</td><td class="right">64 051</td><td class="center"><span class="badge badge-gold">≈ stable</span></td></tr>
+          <tr><td>Total recettes estimées (€)</td><td class="right">147 674</td><td class="right">162 167</td><td class="right best">178 662</td><td class="right">169 921</td><td class="center"><span class="badge badge-red">↓ −5 %</span></td></tr>
+          <tr><td>Mécénat (€)</td><td class="right">9 000</td><td class="right">18 050</td><td class="right best">33 864</td><td class="right worst">23 480</td><td class="center"><span class="badge badge-red">↓ −31 %</span></td></tr>
+          <tr><td>Subventions (€)</td><td class="right">75 950</td><td class="right">72 950</td><td class="right">75 000</td><td class="right best">77 000</td><td class="center"><span class="badge badge-green">↑ +3 %</span></td></tr>
+          <tr><td>Recette moy. / billet (€)</td><td class="right">9,19</td><td class="right">10,54</td><td class="right">12,13</td><td class="right best">13,87</td><td class="center"><span class="badge badge-green">↑ +14 %</span></td></tr>
+          <tr><td>Moyenne soirées (pers.)</td><td class="right best">248</td><td class="right">228</td><td class="right">241</td><td class="right">227</td><td class="center"><span class="badge badge-gold">↓ −6 %</span></td></tr>
+          <tr><td>Cartes Amis du Festival</td><td class="right best">223</td><td class="right best">223</td><td class="right">177</td><td class="right">171</td><td class="center"><span class="badge badge-red">↓ −23 % (3 ans)</span></td></tr>
+          <tr><td>% invités (hors scol.)</td><td class="right">—</td><td class="right">—</td><td class="right worst">11,8 %</td><td class="right best">4,8 %</td><td class="center"><span class="badge badge-green">↓ bon signe</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================================ SATISFACTION ================================ -->
+<section id="satisfaction">
+  <div class="section-header">
+    <h2>Satisfaction des spectateurs</h2>
+    <span class="section-tag">Enquête post-festival — 113 réponses</span>
+  </div>
+
+  <div class="metrics">
+    <div class="metric-card"><p class="metric-label">Très satisfaits</p><p class="metric-val">42 %</p><span class="metric-delta delta-up">47 répondants</span></div>
+    <div class="metric-card"><p class="metric-label">Satisfaits</p><p class="metric-val">40 %</p><span class="metric-delta delta-up">45 répondants</span></div>
+    <div class="metric-card"><p class="metric-label">Mitigés</p><p class="metric-val">16 %</p><span class="metric-delta delta-flat">18 répondants</span></div>
+    <div class="metric-card"><p class="metric-label">Déçus</p><p class="metric-val">3 %</p><span class="metric-delta delta-up">3 répondants seulement</span></div>
+    <div class="metric-card"><p class="metric-label">Fiches utiles</p><p class="metric-val">95 / 113</p><span class="metric-delta delta-up">84 % des répondants</span></div>
+    <div class="metric-card"><p class="metric-label">Site consulté</p><p class="metric-val">93 / 113</p><span class="metric-delta delta-up">82 % des répondants</span></div>
+  </div>
+
+  <div class="cards">
+    <div class="chart-card" style="grid-column:span 1">
+      <h3>Satisfaction globale</h3>
+      <p>Répartition des 113 réponses</p>
+      <div class="chart-wrap" style="height:240px">
+        <canvas id="chartSatisfaction" role="img" aria-label="Satisfaction globale spectateurs">Très satisfaits 47, Satisfaits 45, Mitigés 18, Déçus 3.</canvas>
+      </div>
+    </div>
+    <div class="chart-card" style="grid-column:span 1">
+      <h3>Évaluation de la salle</h3>
+      <p>% de réponses "Bien" ou "Très bien"</p>
+      <div class="chart-wrap" style="height:240px">
+        <canvas id="chartSalle" role="img" aria-label="Évaluation salle"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Coups de coeur -->
+  <div class="table-card">
+    <div class="table-card-header"><h3>Coups de cœur — spectacles les plus plébiscités</h3></div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Spectacle</th>
+            <th class="right">Mentions</th>
+            <th class="right">Fréquentation soir</th>
+            <th class="center">Cohérence public / cœur</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>H#mlet, la fin d'une enfance</td><td class="right"><strong>25</strong></td><td class="right">241</td><td class="center"><span class="badge badge-green">★★★ Coup de cœur majeur</span></td></tr>
+          <tr><td>Il n'y a pas de Ajar</td><td class="right">19</td><td class="right">224</td><td class="center"><span class="badge badge-green">★★★ Coup de cœur fort</span></td></tr>
+          <tr><td>Richard III</td><td class="right">14</td><td class="right">251</td><td class="center"><span class="badge badge-gold">★★ Plein + apprécié</span></td></tr>
+          <tr><td>Le Problème Lapin</td><td class="right">12</td><td class="right">251</td><td class="center"><span class="badge badge-gold">★★ Plein + apprécié</span></td></tr>
+          <tr><td>Maintenant je n'écris plus qu'en français</td><td class="right">9</td><td class="right">248</td><td class="center"><span class="badge badge-gold">★★ Cohérent</span></td></tr>
+          <tr><td>Toutes les choses géniales</td><td class="right">8</td><td class="right">251</td><td class="center"><span class="badge badge-gold">★★ Cohérent</span></td></tr>
+          <tr><td>Jacques et Chirac</td><td class="right">6</td><td class="right">251</td><td class="center"><span class="badge badge-gold">★ Solide</span></td></tr>
+          <tr><td>Qu'il fait beau cela vous suffit</td><td class="right">4</td><td class="right">185</td><td class="center"><span class="badge badge-red">Fréquentation faible vs mentions</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Communication -->
+  <div class="chart-card">
+    <h3>Canaux de communication — usage déclaré</h3>
+    <p>Sur 113 répondants</p>
+    <div class="legend">
+      <span><span class="leg-sq" style="background:#1a1612"></span>Oui / utilisé</span>
+      <span><span class="leg-sq" style="background:#e8d5a0"></span>Non / non utilisé</span>
+    </div>
+    <div class="chart-wrap" style="height:220px">
+      <canvas id="chartComm" role="img" aria-label="Canaux de communication"></canvas>
+    </div>
+  </div>
+
+  <!-- Verbatims par thème -->
+  <div class="cards" style="grid-template-columns: 1fr 1fr; gap:14px;">
+
+    <div class="card">
+      <h3>💬 Billetterie — verbatims clés</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:.25rem;">
+        <div style="background:var(--red-light);border-left:3px solid var(--red);padding:8px 10px;border-radius:2px;font-size:12px;color:var(--ink-mid);">"Il y a une difficulté pour réserver plusieurs places côte à côte si on ne le fait pas sur un seul et même compte."</div>
+        <div style="background:var(--red-light);border-left:3px solid var(--red);padding:8px 10px;border-radius:2px;font-size:12px;color:var(--ink-mid);">"J'ai compris trop tard qu'il fallait cliquer sur le prix pour le tarif réduit."</div>
+        <div style="background:var(--red-light);border-left:3px solid var(--red);padding:8px 10px;border-radius:2px;font-size:12px;color:var(--ink-mid);">"Pas intuitif, on ne sait jamais si c'est la bonne manip."</div>
+        <div style="background:var(--green-light);border-left:3px solid var(--green);padding:8px 10px;border-radius:2px;font-size:12px;color:var(--ink-mid);">"Bien intuitive" / "Excellent"</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>💬 Salle — verbatims clés</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:.25rem;">
+        <div style="background:var(--red-light);border-left:3px solid var(--red);padding:8px 10px;border-radius:2px;font-size:12px;color:var(--ink-mid);">"Il fait chaud" / "Plus d'aération en haut de la salle."</div>
+        <div style="background:var(--red-light);border-left:3px solid var(--red);padding:8px 10px;border-radius:2px;font-size:12px;color:var(--ink-mid);">"Un peu trop de fouillis pour entrer" — circulation pairs/impairs confuse.</div>
+        <div style="background:var(--green-light);border-left:3px solid var(--green);padding:8px 10px;border-radius:2px;font-size:12px;color:var(--ink-mid);">"Quelle chance d'avoir cette salle dans notre ville."</div>
+        <div style="background:var(--green-light);border-left:3px solid var(--green);padding:8px 10px;border-radius:2px;font-size:12px;color:var(--ink-mid);">"Sièges confortables."</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>💬 Dépliant &amp; communication — verbatims</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:.25rem;">
+        <div style="background:var(--red-light);border-left:3px solid var(--red);padding:8px 10px;border-radius:2px;font-size:12px;color:var(--ink-mid);">"Les résumés ne rendaient pas compte des pièces, trop sombres, trop complexes, pas assez vendeurs."</div>
+        <div style="background:var(--red-light);border-left:3px solid var(--red);padding:8px 10px;border-radius:2px;font-size:12px;color:var(--ink-mid);">"Peut-être mettre des extraits de critiques."</div>
+        <div style="background:var(--gold-pale);border-left:3px solid var(--gold);padding:8px 10px;border-radius:2px;font-size:12px;color:var(--ink-mid);">"Clair et attractif" / "Très bien, on y est habitué."</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>💬 Animations &amp; attente — verbatims</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:.25rem;">
+        <div style="background:var(--green-light);border-left:3px solid var(--green);padding:8px 10px;border-radius:2px;font-size:12px;color:var(--ink-mid);">Animations musicales : note 4/5 pour 36 répondants, 5/5 pour 21 répondants.</div>
+        <div style="background:var(--red-light);border-left:3px solid var(--red);padding:8px 10px;border-radius:2px;font-size:12px;color:var(--ink-mid);">"Ouvrir la salle plus tôt" — retards de début fréquents mentionnés.</div>
+        <div style="background:var(--gold-pale);border-left:3px solid var(--gold);padding:8px 10px;border-radius:2px;font-size:12px;color:var(--ink-mid);">"Un peu de musique agréable, ou des clips sur les spectacles passés ou à venir."</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================================ FEUILLE DE ROUTE ================================ -->
+<section id="feuilleroute">
+  <div class="section-header">
+    <h2>Feuille de route 2027</h2>
+    <span class="section-tag">Plan d'action consolidé — finances &amp; satisfaction</span>
+  </div>
+
+  <p style="font-size:14px;color:var(--ink-mid);margin-bottom:2rem;max-width:720px;line-height:1.7;">
+    Cette feuille de route intègre à la fois les signaux financiers (baisse de fréquentation, chute du mécénat) et les retours des 113 spectateurs ayant répondu à l'enquête de satisfaction. Les actions sont priorisées selon leur impact estimé sur le résultat net et la satisfaction.
+  </p>
+
+  <!-- Timeline visuelle -->
+  <div class="chart-card" style="margin-bottom:2rem;">
+    <h3>Calendrier des actions — septembre 2026 à mai 2027</h3>
+    <p>Les 3 horizons clés : préparer (automne), lancer (hiver), exécuter (printemps)</p>
+    <div style="overflow-x:auto;padding-bottom:8px;">
+      <div style="display:grid;grid-template-columns:repeat(9,1fr);gap:0;min-width:620px;margin-top:1rem;">
+        <!-- Headers mois -->
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-light);padding:6px 4px;text-align:center;background:var(--bg);border:0.5px solid var(--border);">Sept</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-light);padding:6px 4px;text-align:center;background:var(--bg);border:0.5px solid var(--border);">Oct</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-light);padding:6px 4px;text-align:center;background:var(--bg);border:0.5px solid var(--border);">Nov</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-light);padding:6px 4px;text-align:center;background:var(--bg);border:0.5px solid var(--border);">Déc</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-light);padding:6px 4px;text-align:center;background:var(--bg);border:0.5px solid var(--border);">Janv</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-light);padding:6px 4px;text-align:center;background:var(--bg);border:0.5px solid var(--border);">Févr</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-light);padding:6px 4px;text-align:center;background:var(--bg);border:0.5px solid var(--border);">Mars</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-light);padding:6px 4px;text-align:center;background:var(--bg);border:0.5px solid var(--border);">Avr</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--gold);padding:6px 4px;text-align:center;background:var(--gold-pale);border:0.5px solid var(--gold-light);font-weight:500;">Mai 27</div>
+        <!-- Row 1 -->
+        <div style="grid-column:1/4;border:0.5px solid var(--border);padding:6px 8px;font-size:11px;background:#e8f2ec;color:#2c5a3a;font-weight:500;">Démarchage scolaires (oct. deadline)</div>
+        <div style="grid-column:4/10;border:0.5px solid var(--border);padding:6px 8px;font-size:11px;color:var(--ink-light);background:var(--bg);">Suivi &amp; confirmations groupes scolaires</div>
+        <!-- Row 2 -->
+        <div style="grid-column:1/3;border:0.5px solid var(--border);padding:6px 8px;font-size:11px;background:#e8f2ec;color:#2c5a3a;font-weight:500;">Bilan mécénat + prospection</div>
+        <div style="grid-column:3/6;border:0.5px solid var(--border);padding:6px 8px;font-size:11px;background:#e8f2ec;color:#2c5a3a;">Conventions mécénat signées</div>
+        <div style="grid-column:6/10;border:0.5px solid var(--border);padding:6px 8px;font-size:11px;color:var(--ink-light);background:var(--bg);">Activation contreparties (naming...)</div>
+        <!-- Row 3 -->
+        <div style="grid-column:1/4;border:0.5px solid var(--border);padding:6px 8px;font-size:11px;background:var(--gold-pale);color:#7a5e1a;font-weight:500;">Refonte résumés dépliant + réseaux</div>
+        <div style="grid-column:4/7;border:0.5px solid var(--border);padding:6px 8px;font-size:11px;background:var(--gold-pale);color:#7a5e1a;">Prod. contenus RS &amp; campagne Amis</div>
+        <div style="grid-column:7/10;border:0.5px solid var(--border);padding:6px 8px;font-size:11px;background:var(--gold-pale);color:#7a5e1a;">Lancement comm. &amp; dépliant</div>
+        <!-- Row 4 -->
+        <div style="grid-column:1/5;border:0.5px solid var(--border);padding:6px 8px;font-size:11px;background:var(--bg);color:var(--ink-light);">—</div>
+        <div style="grid-column:5/8;border:0.5px solid var(--border);padding:6px 8px;font-size:11px;background:#fcebeb;color:#8b2c2c;font-weight:500;">Tests billetterie + correctifs UX</div>
+        <div style="grid-column:8/10;border:0.5px solid var(--border);padding:6px 8px;font-size:11px;background:#fcebeb;color:#8b2c2c;">Ouverture billett.</div>
+        <!-- Row 5 — festival -->
+        <div style="grid-column:1/9;border:0.5px solid var(--border);padding:6px 8px;font-size:11px;color:var(--ink-light);background:var(--bg);">Préparation logistique (ventilation salle, signalétique, horaires)</div>
+        <div style="grid-column:9/10;border:0.5px solid var(--border);padding:6px 8px;font-size:11px;background:var(--gold-pale);color:var(--gold);font-weight:500;text-align:center;">Festival</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions tableau -->
+  <div class="table-card" style="margin-bottom:2rem;">
+    <div class="table-card-header">
+      <h3>Plan d'action détaillé</h3>
+      <div style="display:flex;gap:6px;">
+        <button class="toggle-btn active" id="filterAll" onclick="filterActions('all',this)">Tout</button>
+        <button class="toggle-btn" id="filterFinance" onclick="filterActions('finance',this)">Finances</button>
+        <button class="toggle-btn" id="filterSatisf" onclick="filterActions('satisf',this)">Satisfaction</button>
+        <button class="toggle-btn" id="filterComm" onclick="filterActions('comm',this)">Communication</button>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table id="tableActions">
+        <thead>
+          <tr>
+            <th onclick="sortTable('tableActions',0)">Priorité <span class="sort-icon">↕</span></th>
+            <th>Action</th>
+            <th>Axe</th>
+            <th>Quand</th>
+            <th>Responsable suggéré</th>
+            <th class="right">Impact estimé</th>
+          </tr>
+        </thead>
+        <tbody id="tableActionsBody">
+          <tr data-cat="finance">
+            <td><span class="badge badge-red">🔴 Critique</span></td>
+            <td><strong>Relancer le démarchage scolaire dès octobre</strong><br><span style="font-size:11px;color:var(--ink-light)">Contacter enseignants de collèges/lycées, préparer dossiers pédagogiques, proposer tarif groupe et navette.</span></td>
+            <td><span class="badge badge-green">Finances</span></td>
+            <td>Oct 2026</td>
+            <td>Commision scolaire</td>
+            <td class="right">+400 à +600 spectateurs</td>
+          </tr>
+          <tr data-cat="finance">
+            <td><span class="badge badge-red">🔴 Critique</span></td>
+            <td><strong>Reconquérir le mécénat — objectif 30 000 €</strong><br><span style="font-size:11px;color:var(--ink-light)">Bilan mécènes 2026, rendez-vous de fidélisation, prospection bassin Chantilly/Senlis, soirée dédiée mécènes.</span></td>
+            <td><span class="badge badge-green">Finances</span></td>
+            <td>Sept–Nov 2026</td>
+            <td>Président / Trésorier</td>
+            <td class="right">+6 000 à +10 000 €</td>
+          </tr>
+          <tr data-cat="finance">
+            <td><span class="badge badge-gold">🟡 Important</span></td>
+            <td><strong>Relancer les cartes Amis — objectif 200 cartes</strong><br><span style="font-size:11px;color:var(--ink-light)">Enrichir les avantages (avant-première, rencontre compagnies), campagne de renouvellement dès janvier.</span></td>
+            <td><span class="badge badge-green">Finances</span></td>
+            <td>Jan 2027</td>
+            <td>Commision communication</td>
+            <td class="right">+1 000 à +2 000 €</td>
+          </tr>
+          <tr data-cat="finance">
+            <td><span class="badge badge-gold">🟡 Important</span></td>
+            <td><strong>Maintenir le taux d'invités &lt; 5 %</strong><br><span style="font-size:11px;color:var(--ink-light)">Formaliser une politique d'invitation interne, limiter les gratuits aux accompagnateurs stricts.</span></td>
+            <td><span class="badge badge-green">Finances</span></td>
+            <td>Avant ouverture billetterie</td>
+            <td>CA</td>
+            <td class="right">+1 500 à +2 500 €</td>
+          </tr>
+          <tr data-cat="satisf">
+            <td><span class="badge badge-red">🔴 Critique</span></td>
+            <td><strong>Corriger l'UX de la billetterie en ligne</strong><br><span style="font-size:11px;color:var(--ink-light)">Places côte à côte multi-comptes, visibilité du tarif réduit, confirmation e-mail systématique, retirer la dépendance Google.</span></td>
+            <td><span class="badge" style="background:#fcebeb;color:#8b2c2c;">Satisfaction</span></td>
+            <td>Fév–Mars 2027</td>
+            <td>Référent billetterie</td>
+            <td class="right">Impact fort sur NPS</td>
+          </tr>
+          <tr data-cat="satisf">
+            <td><span class="badge badge-gold">🟡 Important</span></td>
+            <td><strong>Améliorer le confort thermique de la salle</strong><br><span style="font-size:11px;color:var(--ink-light)">Ventilateurs ou climatisation ponctuelle pour les soirées de fin mai, amélioration de l'aération haute salle.</span></td>
+            <td><span class="badge" style="background:#fcebeb;color:#8b2c2c;">Satisfaction</span></td>
+            <td>Avant festival</td>
+            <td>Régisseur</td>
+            <td class="right">Mentionné par 15 %+ répondants</td>
+          </tr>
+          <tr data-cat="satisf">
+            <td><span class="badge badge-gold">🟡 Important</span></td>
+            <td><strong>Optimiser la circulation paires/impaires</strong><br><span style="font-size:11px;color:var(--ink-light)">Signalétique claire à l'entrée, bénévoles dédiés, entrée séparée systématique, ouvrir la salle 15 min plus tôt.</span></td>
+            <td><span class="badge" style="background:#fcebeb;color:#8b2c2c;">Satisfaction</span></td>
+            <td>Avant festival</td>
+            <td>Régisseur + bénévoles</td>
+            <td class="right">Réduction retards début</td>
+          </tr>
+          <tr data-cat="satisf">
+            <td><span class="badge" style="background:var(--bg);color:var(--ink-light);">🟢 Amélioration</span></td>
+            <td><strong>Enrichir l'attente avant le spectacle</strong><br><span style="font-size:11px;color:var(--ink-light)">Musique d'ambiance, clips des spectacles passés/à venir sur écran, animations musicales sur la pelouse.</span></td>
+            <td><span class="badge" style="background:#fcebeb;color:#8b2c2c;">Satisfaction</span></td>
+            <td>Prog. festival</td>
+            <td>Commision animation</td>
+            <td class="right">Expérience globale +</td>
+          </tr>
+          <tr data-cat="satisf">
+            <td><span class="badge" style="background:var(--bg);color:var(--ink-light);">🟢 Amélioration</span></td>
+            <td><strong>Ajouter la durée des spectacles sur les fiches</strong><br><span style="font-size:11px;color:var(--ink-light)">Demande explicite et récurrente des répondants. Simple à mettre en œuvre.</span></td>
+            <td><span class="badge" style="background:#fcebeb;color:#8b2c2c;">Satisfaction</span></td>
+            <td>Prod. dépliant</td>
+            <td>Commision com.</td>
+            <td class="right">Attente pratique forte</td>
+          </tr>
+          <tr data-cat="comm">
+            <td><span class="badge badge-red">🔴 Critique</span></td>
+            <td><strong>Développer les réseaux sociaux — objectif ×3 abonnés</strong><br><span style="font-size:11px;color:var(--ink-light)">Seulement 20/113 répondants abonnés. Plan de contenu régulier (coulisses, annonces, revues de presse), 2 posts/semaine minimum.</span></td>
+            <td><span class="badge badge-gold">Communication</span></td>
+            <td>Dès sept. 2026</td>
+            <td>Référent RS</td>
+            <td class="right">Notoriété + billets vendus</td>
+          </tr>
+          <tr data-cat="comm">
+            <td><span class="badge badge-gold">🟡 Important</span></td>
+            <td><strong>Retravailler les résumés du dépliant</strong><br><span style="font-size:11px;color:var(--ink-light)">Trop "sombres et complexes" selon les répondants. Ajouter des accroches, des extraits de critiques, préciser le public cible.</span></td>
+            <td><span class="badge badge-gold">Communication</span></td>
+            <td>Nov–Déc 2026</td>
+            <td>Commision com.</td>
+            <td class="right">Conversion prospect → billet</td>
+          </tr>
+          <tr data-cat="comm">
+            <td><span class="badge badge-gold">🟡 Important</span></td>
+            <td><strong>Améliorer la distribution du dépliant</strong><br><span style="font-size:11px;color:var(--ink-light)">49 % des répondants ne l'ont pas reçu. Renforcer les points de dépôt, boîtage ciblé, partenariats commerçants locaux.</span></td>
+            <td><span class="badge badge-gold">Communication</span></td>
+            <td>Fév 2027</td>
+            <td>Bénévoles logistique</td>
+            <td class="right">Reach +30 % estimé</td>
+          </tr>
+          <tr data-cat="comm">
+            <td><span class="badge" style="background:var(--bg);color:var(--ink-light);">🟢 Amélioration</span></td>
+            <td><strong>Mieux annoncer les animations musicales</strong><br><span style="font-size:11px;color:var(--ink-light)">67 participants et notes très positives, mais manque de visibilité. Les inclure dans la com' principale.</span></td>
+            <td><span class="badge badge-gold">Communication</span></td>
+            <td>Prod. comm.</td>
+            <td>Commision animation</td>
+            <td class="right">Participation estimée ×1,5</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Impact financier synthèse -->
+  <div class="chart-card">
+    <h3>Impact financier estimé — scénario optimiste 2027</h3>
+    <p>Si toutes les actions prioritaires sont menées à bien</p>
+    <div class="chart-wrap" style="height:260px">
+      <canvas id="chartProjection" role="img" aria-label="Projection financière 2027"></canvas>
+    </div>
+  </div>
+
+</section>
+
+<!-- ================================ RECOMMANDATIONS ================================ -->
+<section id="recos">
+  <div class="section-header">
+    <h2>Recommandations</h2>
+    <span class="section-tag">Pistes pour l'édition 2027</span>
+  </div>
+
+  <div class="reco-grid">
+    <div class="reco-card">
+      <span class="reco-num">1</span>
+      <p class="reco-priority">Priorité absolue</p>
+      <h4>Inverser la chute scolaire</h4>
+      <p>−495 élèves en un an (−26 %). Lancer le démarchage dès octobre, proposer des dossiers pédagogiques, cibler collèges et lycées avec un interlocuteur dédié. L'érosion scolaire est le principal levier de fréquentation manquante.</p>
+    </div>
+    <div class="reco-card">
+      <span class="reco-num">2</span>
+      <p class="reco-priority">Urgent</p>
+      <h4>Reconquérir le mécénat</h4>
+      <p>Chute de 33 864 € à 23 480 € (−31 %). Fidéliser les mécènes avec un suivi annuel, des contreparties de visibilité claires (naming, soirée dédiée) et prospecter activement le bassin Chantilly / Senlis.</p>
+    </div>
+    <div class="reco-card">
+      <span class="reco-num">3</span>
+      <p class="reco-priority">À maintenir</p>
+      <h4>Tenir le taux d'invités bas</h4>
+      <p>4,8 % en 2026 vs 11,8 % en 2025 : la meilleure performance des 4 ans. Chaque place invitée est 13 € de recette perdue. Formaliser une politique d'invitation stricte dans le règlement interne.</p>
+    </div>
+    <div class="reco-card">
+      <span class="reco-num">4</span>
+      <p class="reco-priority">Moyen terme</p>
+      <h4>Relancer la carte Amis</h4>
+      <p>171 cartes en 2026 vs 223 en 2023 : −23 % en 3 ans. Enrichir la valeur perçue (accès prioritaire aux places, rencontre avec les compagnies, apéro réservé) pour reconquérir les abonnés perdus.</p>
+    </div>
+    <div class="reco-card">
+      <span class="reco-num">5</span>
+      <p class="reco-priority">Sélection artistique</p>
+      <h4>Optimiser le ratio charges / recette</h4>
+      <p>"Il n'y a pas de Ajar" : 11 175 € de charges pour 224 spectateurs. "Richard III" : 4 580 € pour 251 spectateurs. Analyser systématiquement le coût par spectateur à la sélection pour équilibrer le programme.</p>
+    </div>
+    <div class="reco-card">
+      <span class="reco-num">6</span>
+      <p class="reco-priority">Tarification</p>
+      <h4>Valoriser le public adulte plein tarif</h4>
+      <p>Le tarif adulte à 23 € génère 61 % des recettes hors scolaires pour 42 % des billets. Tout ce qui attire un nouveau public adulte (partenariats locaux, tourisme culturel) est directement rentable.</p>
+    </div>
+    <div class="reco-card">
+      <span class="reco-num">7</span>
+      <p class="reco-priority">Programme</p>
+      <h4>Développer la formule Odyssée</h4>
+      <p>3 séances pour 679 élèves : c'est le spectacle scolaire le plus fréquenté. Format conférence musicale apprécié, rapport qualité/coût raisonnable (10 975 € / 3 séances). À reconduire et étendre.</p>
+    </div>
+  </div>
+
+  <div class="chart-card" style="margin-top:1.5rem">
+    <h3>Impact potentiel des recommandations</h3>
+    <p>Estimation de gain de fréquentation si chaque recommandation était mise en œuvre à 100 %</p>
+    <div class="chart-wrap" style="height:280px">
+      <canvas id="chartImpact" role="img" aria-label="Impact estimé des recommandations"></canvas>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Festival Théâtral de Coye-la-Forêt · 45ème édition · Données billetterie au 30 mai 2026</p>
+  <p style="margin-top:.25rem">Document interne — usage associatif</p>
+</footer>
+
+<script>
+// ─── NAVIGATION ───────────────────────────────────────────────────────────────
+function showSection(id) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── DATA ──────────────────────────────────────────────────────────────────────
+const spectaclesData = [
+  { n:1, date:'Lun 4/05 10h00', titre:'Monsieur Herbin', total:219, payants:219, gratuits:5, recette:2140, type:'Scolaire' },
+  { n:2, date:'Lun 4/05 14h00', titre:'Monsieur Herbin', total:227, payants:227, gratuits:5, recette:2109, type:'Scolaire' },
+  { n:3, date:'Mar 5/05 10h00', titre:'Monsieur Herbin', total:224, payants:224, gratuits:2, recette:2109, type:'Scolaire' },
+  { n:4, date:'Jeu 7/05 10h00', titre:'La Muette', total:191, payants:191, gratuits:8, recette:1739, type:'Scolaire' },
+  { n:5, date:'Jeu 7/05 14h00', titre:'La Muette', total:156, payants:156, gratuits:6, recette:1425, type:'Scolaire' },
+  { n:6, date:'Ven 8/05 21h00', titre:'Illusions', total:215, payants:198, gratuits:25, recette:3728, type:'Soirée' },
+  { n:7, date:'Sam 9/05 21h00', titre:'Toutes les choses géniales', total:251, payants:227, gratuits:29, recette:3983, type:'Soirée' },
+  { n:8, date:'Lun 11/05 21h00', titre:"Il n'y a pas de Ajar", total:224, payants:205, gratuits:27, recette:3867, type:'Soirée' },
+  { n:9, date:'Mar 12/05 21h00', titre:'Lichen', total:110, payants:101, gratuits:20, recette:1631, type:'Soirée' },
+  { n:10, date:'Mer 13/05 21h00', titre:'Le problème Lapin', total:251, payants:237, gratuits:18, recette:4276, type:'Soirée' },
+  { n:11, date:'Jeu 14/05 21h00', titre:'Jacques et Chirac', total:251, payants:227, gratuits:25, recette:4259, type:'Soirée' },
+  { n:12, date:'Ven 15/05 21h00', titre:"H#mlet, la fin d'une enfance", total:241, payants:225, gratuits:22, recette:3909, type:'Soirée' },
+  { n:13, date:'Sam 16/05 17h30', titre:'Conférence Shakespeare (gratuite)', total:0, payants:0, gratuits:0, recette:0, type:'Gratuit' },
+  { n:14, date:'Sam 16/05 21h00', titre:'Richard III', total:251, payants:225, gratuits:27, recette:4042, type:'Soirée' },
+  { n:15, date:'Lun 18/05 21h00', titre:"Qu'il fait beau cela vous suffit", total:185, payants:178, gratuits:16, recette:3003, type:'Soirée' },
+  { n:16, date:'Mar 19/05 21h00', titre:'Corpus Machin (une histoire de ma grosseur)', total:137, payants:126, gratuits:30, recette:1956, type:'Soirée' },
+  { n:17, date:'Mer 20/05 21h00', titre:'Cowboy ou indien ?', total:184, payants:176, gratuits:17, recette:3025, type:'Soirée' },
+  { n:18, date:'Jeu 21/05 21h00', titre:"Maintenant je n'écris plus qu'en français", total:248, payants:235, gratuits:13, recette:4422, type:'Soirée' },
+  { n:19, date:'Ven 22/05 21h00', titre:'Monstres', total:173, payants:162, gratuits:17, recette:2840, type:'Soirée' },
+  { n:20, date:'Sam 23/05 21h00', titre:'Jeux de massacre', total:202, payants:178, gratuits:30, recette:3231, type:'Soirée' },
+  { n:21, date:'Mar 26/05 10h00', titre:'Odyssée, la conférence musicale', total:244, payants:244, gratuits:2, recette:2299, type:'Scolaire' },
+  { n:22, date:'Jeu 28/05 14h00', titre:'Odyssée, la conférence musicale', total:232, payants:232, gratuits:0, recette:2204, type:'Scolaire' },
+  { n:23, date:'Jeu 28/05 10h00', titre:'Odyssée, la conférence musicale', total:203, payants:203, gratuits:8, recette:1854, type:'Scolaire' },
+];
+
+const chargesData = [
+  { titre:'Monsieur Herbin', cachet:4114.5, droits:1665, autres:3795 },
+  { titre:'La Muette', cachet:5900, droits:0, autres:3961.2 },
+  { titre:'Illusions', cachet:3400, droits:555, autres:1990.4 },
+  { titre:'Toutes les choses géniales', cachet:2099.45, droits:555, autres:1436.5 },
+  { titre:"Il n'y a pas de Ajar", cachet:3692.5, droits:555, autres:6927.2 },
+  { titre:'Lichen', cachet:4220, droits:555, autres:2651.95 },
+  { titre:'Le problème lapin', cachet:4009, droits:555, autres:3099.8 },
+  { titre:'Jacques et Chirac', cachet:4114.5, droits:555, autres:3128.8 },
+  { titre:'H#mlet', cachet:3376, droits:555, autres:3252 },
+  { titre:'Richard III', cachet:3500, droits:555, autres:1525 },
+  { titre:"Qu'il fait beau...", cachet:6857.5, droits:450, autres:6288.4 },
+  { titre:'Corpus Machin', cachet:2000, droits:555, autres:2764.4 },
+  { titre:'Cowboy ou indien', cachet:2004.5, droits:555, autres:1870.48 },
+  { titre:"Maintenant j'écris...", cachet:2321, droits:555, autres:3991.4 },
+  { titre:'Monstres', cachet:4300, droits:555, autres:1719.8 },
+  { titre:'Jeux de Massacre', cachet:1500, droits:555, autres:1100.2 },
+  { titre:'Odyssée', cachet:6000, droits:1665, autres:3556.82 },
+];
+
+// ─── TABLE SPECTACLES ─────────────────────────────────────────────────────────
+(function renderSpectacles() {
+  const tbody = document.getElementById('tableSpectaclesBody');
+  tbody.innerHTML = spectaclesData.map(s => `
+    <tr>
+      <td>${s.n}</td>
+      <td>${s.date}</td>
+      <td>${s.titre}</td>
+      <td class="right"><strong>${s.total}</strong></td>
+      <td class="right">${s.payants}</td>
+      <td class="right" style="color:${s.gratuits>20?'var(--red)':'var(--ink-light)'};">${s.gratuits}</td>
+      <td class="right">${s.recette > 0 ? s.recette.toLocaleString('fr-FR',{minimumFractionDigits:0}) + ' €' : '—'}</td>
+      <td class="center"><span class="badge ${s.type==='Soirée'?'badge-gold':s.type==='Scolaire'?'badge-green':'badge-red'}">${s.type}</span></td>
+    </tr>
+  `).join('');
+})();
+
+// ─── TABLE CHARGES ────────────────────────────────────────────────────────────
+(function renderCharges() {
+  const tbody = document.getElementById('tableChargesBody');
+  const sorted = [...chargesData].sort((a,b) => (b.cachet+b.droits+b.autres)-(a.cachet+a.droits+a.autres));
+  tbody.innerHTML = sorted.map(c => {
+    const total = c.cachet + c.droits + c.autres;
+    return `
+      <tr>
+        <td>${c.titre}</td>
+        <td class="right">${c.cachet.toLocaleString('fr-FR',{minimumFractionDigits:2})} €</td>
+        <td class="right">${c.droits > 0 ? c.droits.toLocaleString('fr-FR',{minimumFractionDigits:0}) + ' €' : '—'}</td>
+        <td class="right">${c.autres.toLocaleString('fr-FR',{minimumFractionDigits:2})} €</td>
+        <td class="right"><strong>${total.toLocaleString('fr-FR',{minimumFractionDigits:2})} €</strong></td>
+      </tr>
+    `;
+  }).join('');
+  const tot = chargesData.reduce((a,c)=>({cachet:a.cachet+c.cachet,droits:a.droits+c.droits,autres:a.autres+c.autres}),{cachet:0,droits:0,autres:0});
+  tbody.innerHTML += `<tr style="font-weight:500;background:var(--gold-pale)">
+    <td>Total</td>
+    <td class="right">${tot.cachet.toLocaleString('fr-FR',{minimumFractionDigits:2})} €</td>
+    <td class="right">${tot.droits.toLocaleString('fr-FR',{minimumFractionDigits:0})} €</td>
+    <td class="right">${tot.autres.toLocaleString('fr-FR',{minimumFractionDigits:2})} €</td>
+    <td class="right">${(tot.cachet+tot.droits+tot.autres).toLocaleString('fr-FR',{minimumFractionDigits:2})} €</td>
+  </tr>`;
+})();
+
+// ─── TABLE SORT ───────────────────────────────────────────────────────────────
+let sortState = {};
+function sortTable(tableId, colIdx) {
+  const key = tableId + '-' + colIdx;
+  sortState[key] = !sortState[key];
+  const tbody = document.getElementById(tableId + 'Body');
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+  rows.sort((a, b) => {
+    const av = a.cells[colIdx]?.textContent.replace(/[€ \s]/g,'').replace(',','.') || '';
+    const bv = b.cells[colIdx]?.textContent.replace(/[€ \s]/g,'').replace(',','.') || '';
+    const an = parseFloat(av); const bn = parseFloat(bv);
+    if (!isNaN(an) && !isNaN(bn)) return sortState[key] ? an-bn : bn-an;
+    return sortState[key] ? av.localeCompare(bv) : bv.localeCompare(av);
+  });
+  rows.forEach(r => tbody.appendChild(r));
+  document.querySelectorAll('#' + tableId + ' thead th').forEach((th,i) => {
+    th.classList.toggle('sorted', i === colIdx);
+    const icon = th.querySelector('.sort-icon');
+    if (icon) icon.textContent = i === colIdx ? (sortState[key] ? '↑' : '↓') : '↕';
+  });
+}
+
+// ─── TABLE FILTER ─────────────────────────────────────────────────────────────
+function filterTable(tableId, inputId) {
+  const q = document.getElementById(inputId).value.toLowerCase();
+  document.querySelectorAll('#' + tableId + 'Body tr').forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
+// ─── CHARTS ───────────────────────────────────────────────────────────────────
+const GOLD = '#b8933a'; const INK = '#1a1612'; const GREEN = '#2c5a3a'; const RED = '#8b2c2c';
+const GOLD2 = '#d4b06a'; const GREEN2 = '#4a8a5a';
+
+// Chart Global (résumé)
+new Chart(document.getElementById('chartGlobal'), {
+  type: 'bar',
+  data: {
+    labels: ['2023','2024','2025','2026'],
+    datasets: [
+      { label: 'Fréquentation', data: [6035,6047,5310,4619], backgroundColor: [INK,INK,INK,GOLD], yAxisID:'y1' },
+      { label: 'Recette billetterie', data: [62724,71167,64408,64051], type:'line', borderColor:GOLD, backgroundColor:'transparent', pointBackgroundColor:GOLD, pointRadius:5, yAxisID:'y2', tension:.3 },
+      { label: 'Total recettes', data: [147674,162167,178662,169921], type:'line', borderColor:GREEN, backgroundColor:'transparent', pointBackgroundColor:GREEN, pointRadius:5, yAxisID:'y2', tension:.3, borderDash:[4,4] }
+    ]
+  },
+  options: { responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false} },
+    scales:{
+      y1:{ position:'left', ticks:{color:'#8a8278',font:{size:11}}, grid:{color:'rgba(26,22,18,0.06)'} },
+      y2:{ position:'right', ticks:{color:'#8a8278',font:{size:11}, callback:v=>(v/1000).toFixed(0)+'k€'}, grid:{drawOnChartArea:false} },
+      x:{ ticks:{color:'#8a8278',font:{size:12}} }
+    }
+  }
+});
+
+// Chart Donut
+new Chart(document.getElementById('chartDonut'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Adulte 23€','Amis 14€','Enfants 10€','Cartes cult. 17€','Invités 0€','Étudiants 12€','Autres 10€'],
+    datasets: [{ data:[1337,630,351,254,223,138,93], backgroundColor:[INK,GOLD,'#8a8278',GOLD2,RED,GREEN,GREEN2], borderWidth:2, borderColor:'#f5f2ec' }]
+  },
+  options: { responsive:true, maintainAspectRatio:false, cutout:'62%',
+    plugins:{ legend:{ position:'right', labels:{ font:{size:11}, color:'#4a4540', padding:10 } } }
+  }
+});
+
+// Chart Scolaires
+new Chart(document.getElementById('chartScol'), {
+  type: 'bar',
+  data: {
+    labels: ['2023','2024','2025','2026'],
+    datasets: [
+      { label: 'Hors scolaires', data:[3474,3777,3372,3176], backgroundColor:GOLD },
+      { label: 'Scolaires', data:[2561,2270,1938,1443], backgroundColor:'#d4b06a' }
+    ]
+  },
+  options: { responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ labels:{font:{size:11},color:'#4a4540'} } },
+    scales:{ x:{ stacked:true, ticks:{color:'#8a8278'} }, y:{ stacked:true, ticks:{color:'#8a8278',font:{size:11}} } }
+  }
+});
+
+// Chart Soirées
+const soirees = spectaclesData.filter(s => s.type === 'Soirée').sort((a,b)=>b.total-a.total);
+new Chart(document.getElementById('chartSoirees'), {
+  type: 'bar',
+  data: {
+    labels: soirees.map(s => s.titre.length > 30 ? s.titre.slice(0,28)+'…' : s.titre),
+    datasets: [{
+      label: 'Spectateurs',
+      data: soirees.map(s => s.total),
+      backgroundColor: soirees.map(s => s.total >= 245 ? GREEN : s.total >= 200 ? GOLD : s.total >= 160 ? GOLD2 : RED)
+    }]
+  },
+  options: { indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false} },
+    scales:{
+      x:{ max:270, ticks:{color:'#8a8278',font:{size:11}}, grid:{color:'rgba(26,22,18,0.06)'} },
+      y:{ ticks:{color:'#4a4540',font:{size:11}} }
+    }
+  }
+});
+
+// Chart Charges
+const chargesSorted = [...chargesData].sort((a,b)=>(b.cachet+b.droits+b.autres)-(a.cachet+a.droits+a.autres));
+new Chart(document.getElementById('chartCharges'), {
+  type: 'bar',
+  data: {
+    labels: chargesSorted.map(c => c.titre.length > 28 ? c.titre.slice(0,26)+'…' : c.titre),
+    datasets: [
+      { label:'Cachet TTC', data:chargesSorted.map(c=>c.cachet), backgroundColor:INK },
+      { label:'Droits SACD/ASTP', data:chargesSorted.map(c=>c.droits), backgroundColor:GOLD },
+      { label:'Autres frais', data:chargesSorted.map(c=>c.autres), backgroundColor:GREEN }
+    ]
+  },
+  options: { indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ labels:{font:{size:11},color:'#4a4540'} } },
+    scales:{
+      x:{ stacked:true, ticks:{color:'#8a8278',font:{size:11}, callback:v=>v+'€'}, grid:{color:'rgba(26,22,18,0.06)'} },
+      y:{ stacked:true, ticks:{color:'#4a4540',font:{size:11}} }
+    }
+  }
+});
+
+// Chart Histo
+const histoDatasets = {
+  freq:    { label:'Fréquentation', data:[6035,6047,5310,4619], bc:[INK,INK,INK,GOLD] },
+  recette: { label:'Recette billetterie (€)', data:[62724,71167,64408,64051], bc:[INK,INK,INK,GOLD] },
+  moyen:   { label:'Recette moy. / billet (€)', data:[9.19,10.54,12.13,13.87], bc:[INK,INK,INK,GOLD] },
+  mecen:   { label:'Mécénat (€)', data:[9000,18050,33864,23480], bc:[GREEN,GREEN,GREEN,RED] },
+};
+let histoChart;
+function buildHistoChart(key) {
+  const d = histoDatasets[key];
+  const cfg = { type:'bar',
+    data:{ labels:['2023','2024','2025','2026'], datasets:[{ label:d.label, data:d.data, backgroundColor:d.bc }] },
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false} },
+      scales:{ x:{ticks:{color:'#8a8278',font:{size:12}}}, y:{ticks:{color:'#8a8278',font:{size:11}}, grid:{color:'rgba(26,22,18,0.06)'}} }
+    }
+  };
+  if (histoChart) { histoChart.destroy(); }
+  histoChart = new Chart(document.getElementById('chartHisto'), cfg);
+}
+buildHistoChart('freq');
+function switchHistoChart(key, btn) {
+  document.querySelectorAll('.toggle-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  buildHistoChart(key);
+}
+
+// ─── FILTER ACTIONS TABLE ────────────────────────────────────────────────────
+function filterActions(cat, btn) {
+  document.querySelectorAll('#tableActionsBody tr').forEach(row => {
+    row.style.display = (cat === 'all' || row.dataset.cat === cat) ? '' : 'none';
+  });
+  document.querySelectorAll('#filterAll,#filterFinance,#filterSatisf,#filterComm').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Chart Satisfaction
+new Chart(document.getElementById('chartSatisfaction'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Très satisfaits (47)','Satisfaits (45)','Mitigés (18)','Déçus (3)'],
+    datasets: [{ data:[47,45,18,3], backgroundColor:[GREEN,GOLD,GOLD2,RED], borderWidth:2, borderColor:'#f5f2ec' }]
+  },
+  options: { responsive:true, maintainAspectRatio:false, cutout:'60%',
+    plugins:{ legend:{ position:'right', labels:{ font:{size:11}, color:'#4a4540', padding:10 } } }
+  }
+});
+
+// Chart Salle
+new Chart(document.getElementById('chartSalle'), {
+  type: 'bar',
+  data: {
+    labels: ['Acoustique','Accueil /\naccessibilité','Éclairage'],
+    datasets: [
+      { label:'Bien ou Très bien', data:[86,88,96], backgroundColor:[GOLD,GOLD,GREEN] },
+      { label:'Autres', data:[14,12,4], backgroundColor:['#e8d5a0','#e8d5a0','#c0dd97'] }
+    ]
+  },
+  options: { responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ labels:{font:{size:11},color:'#4a4540'} } },
+    scales:{
+      x:{ stacked:true, ticks:{color:'#8a8278',font:{size:11}} },
+      y:{ stacked:true, max:100, ticks:{color:'#8a8278',font:{size:11},callback:v=>v+'%'} }
+    }
+  }
+});
+
+// Chart Comm canaux
+new Chart(document.getElementById('chartComm'), {
+  type: 'bar',
+  data: {
+    labels: ['Site internet','Billetterie en ligne','Affiches en ville','Dépliant reçu','Animations musicales','Réseaux sociaux'],
+    datasets: [
+      { label:'Oui / utilisé', data:[93,90,82,59,67,20], backgroundColor:GOLD },
+      { label:'Non / non utilisé', data:[17,23,31,54,46,91], backgroundColor:'#e8d5a0' }
+    ]
+  },
+  options: { indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ labels:{font:{size:11},color:'#4a4540'} } },
+    scales:{
+      x:{ stacked:true, max:113, ticks:{color:'#8a8278',font:{size:11}} },
+      y:{ stacked:true, ticks:{color:'#4a4540',font:{size:11}} }
+    }
+  }
+});
+
+// Chart Projection 2027
+new Chart(document.getElementById('chartProjection'), {
+  type: 'bar',
+  data: {
+    labels: ['Fréquentation\n2026','Gain scolaires\n(cible)','Gain Amis\n(cible)','Gain RS\n&amp; dépliant','Total estimé\n2027'],
+    datasets: [{
+      label: 'Spectateurs',
+      data: [4619, 500, 30, 100, 5249],
+      backgroundColor: [INK, GREEN, GOLD, GOLD2, '#b8933a'],
+      borderWidth: 0
+    }]
+  },
+  options: { responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false},
+      tooltip:{ callbacks:{ label: ctx => ctx.raw.toLocaleString('fr-FR') + ' spectateurs' } }
+    },
+    scales:{
+      x:{ ticks:{color:'#8a8278',font:{size:11}} },
+      y:{ ticks:{color:'#8a8278',font:{size:11}}, grid:{color:'rgba(26,22,18,0.06)'} }
+    }
+  }
+});
+
+// Chart Impact
+new Chart(document.getElementById('chartImpact'), {
+  type: 'bar',
+  data: {
+    labels: ['Reconquête scolaire','Cartes Amis (+50)','Public adulte (+10 %)','Reduce invités 0 %','Mécénat restauré'],
+    datasets:[{
+      label:'Gain estimé (€ ou spectateurs)',
+      data:[4500,350,280,220,10000],
+      backgroundColor:[GREEN,GOLD,GOLD2,INK,RED]
+    }]
+  },
+  options:{ responsive:true, maintainAspectRatio:false, indexAxis:'y',
+    plugins:{ legend:{display:false},
+      tooltip:{ callbacks:{ label: ctx => ctx.dataIndex<=3 ? '+'+ctx.raw+' spectateurs' : '+'+ctx.raw.toLocaleString('fr-FR')+' €' } }
+    },
+    scales:{
+      x:{ ticks:{color:'#8a8278',font:{size:11}}, grid:{color:'rgba(26,22,18,0.06)'} },
+      y:{ ticks:{color:'#4a4540',font:{size:11}} }
+    }
+  }
+});
+</script>
+</body>
+</html>
